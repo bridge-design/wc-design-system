@@ -50,7 +50,7 @@ jobs:
 
       - id: get-preview-url
         name: Get preview url
-        run: echo "::set-output name=preview-url::https://wc-ds.github.io/design-system/pr:${{ github.event.number }}"
+        run: echo "::set-output name=preview-url::https://bridge-design.github.io/wc-design-system/pr:${{ github.event.number }}"
         shell: bash
 
       - name: Post Preview Comment
