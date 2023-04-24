@@ -1,0 +1,23 @@
+name: Remove PR preview after pull request is closed
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+    types: [closed]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.number }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+      - name: Remove deployment folder
+        run: rm -rf pr:${{ github.event.number }}
+      - name: Unpublish branch
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Remove PR ${{ github.event.number }}"
+          branch: gh-pages
