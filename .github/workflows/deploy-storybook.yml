@@ -27,9 +27,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build design tokens
-        run: npm run tokens
-
       - name: Build custom elements manifest
         run: npm run manifest:storybook
           
