@@ -67,9 +67,9 @@ export class WCButton extends LitElement {
     const { variant, disabled, ariaLabel, ariaLabelledBy, id } = this;
 
     const buttonClasses = {
-      button: true,
-      'button--primary': variant === 'primary',
-      'button--secondary': variant === 'secondary',
+      'wc-button': true,
+      'wc-button--primary': variant === 'primary',
+      'wc-button--secondary': variant === 'secondary',
     };
 
     return html`<button

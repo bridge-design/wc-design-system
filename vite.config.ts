@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 import viteSvgLoader from 'vite-svg-loader';
 
 const bundleFilename = 'design-system.es.js';
@@ -21,14 +20,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    viteStaticCopy({
-      targets: [
-        {
-          src: 'src/tokens/build/*.json',
-          dest: 'tokens/'
-        }
-      ]
-    }),
     viteSvgLoader({
       defaultImport: 'raw',
     }),

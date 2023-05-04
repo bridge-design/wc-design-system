@@ -1,8 +1,8 @@
 {
-  "name": "design-system",
+  "name": "wc-design-system",
   "version": "0.0.1",
-  "description": "Design System",
-  "main": "dist/design-system.es.js",
+  "description": "WC Design System",
+  "main": "dist/wc-design-system.es.js",
   "files": [
     "/dist"
   ],
@@ -102,19 +102,6 @@
     ],
     "./src/**/*.css": [
       "prettier --write"
-    ]
-  },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "moduleNameMapper": {
-      "\\.(css)$": "<rootDir>/test/__mocks__/styleMock.js",
-      "\\.(svg)$": "<rootDir>/test/__mocks__/svgMock.js"
-    },
-    "transform": {
-      "^.+\\.(ts|js|html)$": "ts-jest"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!@open-wc|lit-html|lit-element|lit|@lit|@esm-bundle|@web|web|nanoid)"
     ]
   }
 }
