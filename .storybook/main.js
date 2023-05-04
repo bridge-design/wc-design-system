@@ -27,7 +27,7 @@ module.exports = {
       path.resolve(__dirname, "../vite.config.ts")
     );
     if (process.env.NODE_ENV === "production") {
-      config.base = "design-system"; // base URL for production
+      config.base = "wc-design-system"; // base URL for production
     }
     if (process.env.BASE_URL) {
       config.base = process.env.BASE_URL;

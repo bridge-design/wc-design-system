@@ -8,7 +8,7 @@
   --button-secondary__bg_disabled: #b899ff;
 }
 
-.button {
+.wc-button {
   display: inline-flex;
   position: relative;
   align-items: center;

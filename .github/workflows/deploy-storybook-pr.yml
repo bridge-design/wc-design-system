@@ -34,7 +34,7 @@ jobs:
 
       - name: Build Storybook
         env:
-          BASE_URL: "design-system/pr:${{ github.event.number }}"
+          BASE_URL: "wc-design-system/pr:${{ github.event.number }}"
         run: npm run storybook:build
 
       - name: Deploy Storybook
