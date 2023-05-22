@@ -1,8 +1,8 @@
 {
-  "name": "wc-design-system",
+  "name": "design-system",
   "version": "0.0.1",
   "description": "WC Design System",
-  "main": "dist/wc-design-system.es.js",
+  "main": "dist/design-system.es.js",
   "files": [
     "/dist"
   ],
