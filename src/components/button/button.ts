@@ -1,10 +1,14 @@
 import { LitElement, html, unsafeCSS } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit-html/directives/class-map.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import style from './button.css';
+import { EventDispatcher, event } from '../_common/event';
 
 /**
+ * @event focus  - occurs when an element receives focus.
+ * @event blur   - occurs when an element loses focus.
+ *
  * @cssproperty [--button-primary__bg= #C1D9EB] - The primary button background and border color.
  * @cssproperty [--button-primary__bg_hover= #74A9D2] - The primary button background color when it is hovered.
  * @cssproperty [--button-primary__bg_disabled= #D1E2F0] - The primary button background and border color when it is disabled.
@@ -63,8 +67,42 @@ export class WCButton extends LitElement {
   })
   ariaLabelledBy!: string;
 
+  /** @ignore */
+  @query('button')
+  _button!: HTMLButtonElement;
+
+  /**
+   * Fires when the textarea is focused.
+   */
+  @event('focus') public onFocus: EventDispatcher<Event>;
+
+  /**
+   * Fires every time when the value of an input element looses focus.
+   */
+  @event('blur') public onBlur: EventDispatcher<Event>;
+
+  private handleBlur(e) {
+    e.stopPropagation();
+    this._button.blur();
+    this.onBlur(e);
+  }
+
+  private handleFocus(e) {
+    e.stopPropagation();
+    this._button.focus();
+    this.onFocus(e);
+  }
+
   render() {
-    const { variant, disabled, ariaLabel, ariaLabelledBy, id } = this;
+    const {
+      variant,
+      disabled,
+      ariaLabel,
+      ariaLabelledBy,
+      id,
+      handleBlur,
+      handleFocus,
+    } = this;
 
     const buttonClasses = {
       'wc-button': true,
@@ -79,6 +117,8 @@ export class WCButton extends LitElement {
       aria-label="${ariaLabel}"
       .aria-labelledby="${ariaLabelledBy}"
       id="${ifDefined(id || undefined)}"
+      @blur=${handleBlur}
+      @focus=${handleFocus}
     >
       <slot></slot>
     </button>`;
