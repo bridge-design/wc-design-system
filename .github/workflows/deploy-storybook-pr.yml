@@ -1,0 +1,62 @@
+name: deploy PRs for preview
+
+on:
+  pull_request:
+    branches:
+     - 'main'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event.number }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      - name: Build custom elements manifest
+        run: npm run manifest
+
+      - name: Build Storybook
+        env:
+          BASE_URL: "wc-design-system/pr:${{ github.event.number }}"
+        run: npm run storybook:build
+
+      - name: Deploy Storybook
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          folder: ./storybook-static
+          target-folder: pr:${{ github.event.number }}/
+          branch: gh-pages
+          clean: true
+          clean-exclude: |
+            .nojekyll
+            pr:**/*
+
+      - id: get-preview-url
+        name: Get preview url
+        run: echo "::set-output name=preview-url::https://bridge-design.github.io/wc-design-system/pr:${{ github.event.number }}"
+        shell: bash
+
+      - name: Post Preview Comment
+        uses: phulsechinmay/rewritable-pr-comment@v0.3.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMENT_IDENTIFIER: wc-ds_preview_comment
+          message: |
+            A preview of this PR can be found at ${{ steps.get-preview-url.outputs.preview-url }}.

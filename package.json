@@ -1,0 +1,105 @@
+{
+  "name": "design-system",
+  "version": "0.0.1",
+  "description": "WC Design System",
+  "main": "dist/design-system.es.js",
+  "files": [
+    "/dist"
+  ],
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "npm run manifest:storybook && concurrently \"npm run manifest:storybook:watch\" \"npm run storybook\"",
+    "prepare": "simple-git-hooks",
+    "build": "mkdir -p dist && npm run library:build && npm run manifest && npm run manifest:build",
+    "component": "ts-node --esm ./scripts/add-component.ts",
+    "library:build": "vite build  && tsc --emitDeclarationOnly --skipLibCheck",
+    "manifest": "cem analyze --litelement --exclude \"./**/*.stories.ts\" --exclude \"./storybook-static\" --exclude \"scripts\" --exclude \"dist\" --exclude \"src/tokens\" --exclude \"test\" --outdir src/manifest",
+    "manifest:storybook": "npm run manifest && copy-and-watch src/manifest/custom-elements.json .storybook/public/",
+    "manifest:storybook:watch": "concurrently \"npm run manifest --watch\" \"copy-and-watch --watch src/manifest/custom-elements.json .storybook/public/\"",
+    "manifest:build": "concurrently \"npm run manifest\" \"copy-and-watch src/manifest/custom-elements.json dist/\"",
+    "storybook": "start-storybook --no-manager-cache -p 6006 -s .storybook/public dist/storybook",
+    "storybook:build": "npm run manifest:storybook && build-storybook -s .storybook/public",
+    "storybook:serve": "serve storybook-static -p 3001",
+    "typecheck": "tsc --noEmit --skipLibCheck",
+    "lint": "eslint --ext .cjs,.js,.ts .",
+    "lint:fix": "eslint --ext .cjs,.js,.ts . --fix"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@custom-elements-manifest/analyzer": "^0.6.3",
+    "@open-wc/testing-helpers": "^2.2.0",
+    "@storybook/addon-a11y": "^6.5.16",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/addon-measure": "^6.5.16",
+    "@storybook/builder-vite": "^0.1.33",
+    "@storybook/web-components": "^6.5.16",
+    "@testing-library/dom": "^9.0.1",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/rollup": "^0.54.0",
+    "@types/tinycolor2": "^1.4.3",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "api-viewer-element": "^1.0.0-pre.3",
+    "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.5",
+    "colorette": "^2.0.19",
+    "concurrently": "^7.2.2",
+    "copy-and-watch": "^0.1.6",
+    "copy-to-clipboard": "^3.3.2",
+    "element-internals-polyfill": "^1.1.18",
+    "eslint": "8.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-lit": "^1.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "lint-staged": "^13.0.3",
+    "lit": "^2.2.6",
+    "lit-html": "^2.0.1",
+    "ncp": "^2.0.0",
+    "postcss": "^8.4.14",
+    "postcss-mixins": "^9.0.3",
+    "postcss-nested": "^5.0.6",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.1.0",
+    "rollup-plugin-lit-css": "^4.0.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-postcss-lit": "^2.0.0",
+    "simple-git-hooks": "^2.8.0",
+    "style-dictionary": "^3.7.0",
+    "tinycolor2": "^1.4.2",
+    "token-transformer": "^0.0.23",
+    "ts-loader": "8.2.0",
+    "ts-node": "^10.8.0",
+    "tslib": "^2.2.0",
+    "typescript": "^4.6.4",
+    "vite": "^2.9.12",
+    "vite-plugin-static-copy": "~0.6.0",
+    "vite-svg-loader": "^3.4.0"
+  },
+  "overrides": {
+    "react": "^18.0.0"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 16.13.2",
+    "npm": ">= 8.1.2"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged",
+    "pre-push": "npm run typecheck"
+  },
+  "lint-staged": {
+    "./src/**/*.{js,ts}": [
+      "npm run lint:fix",
+      "prettier --write"
+    ],
+    "./src/**/*.css": [
+      "prettier --write"
+    ]
+  }
+}

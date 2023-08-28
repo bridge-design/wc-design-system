@@ -1,0 +1,43 @@
+name: Deploy Storybook
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "npm"
+
+      - name: Check package version
+        id: cpv
+        uses: PostHog/check-package-version@v2
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build custom elements manifest
+        run: npm run manifest:storybook
+          
+      - name: Build Storybook
+        run: npm run storybook:build
+          
+      - name: Deploy Storybook
+        if: steps.cpv.outputs.is-new-version == 'true'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./storybook-static
+          branch: gh-pages
+          clean: true
+          clean-exclude: pr:**/*
