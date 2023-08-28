@@ -1,0 +1,304 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "postcss.config copy.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./components/button"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/_common/event.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "event",
+          "parameters": [
+            {
+              "name": "customName",
+              "optional": true,
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "event",
+          "declaration": {
+            "name": "event",
+            "module": "src/components/_common/event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "WCButton",
+          "cssProperties": [
+            {
+              "description": "The primary button background and border color.",
+              "name": "--button-primary__bg",
+              "default": "#C1D9EB"
+            },
+            {
+              "description": "The primary button background color when it is hovered.",
+              "name": "--button-primary__bg_hover",
+              "default": "#74A9D2"
+            },
+            {
+              "description": "The primary button background and border color when it is disabled.",
+              "name": "--button-primary__bg_disabled",
+              "default": "#D1E2F0"
+            },
+            {
+              "description": "The secondary button background and border color.",
+              "name": "--button-secondary__bg",
+              "default": "#65A0CD"
+            },
+            {
+              "description": "The secondary button background color when it is hovered.",
+              "name": "--button-secondary__bg_hover",
+              "default": "#3778A9"
+            },
+            {
+              "description": "The secondary background and border color when it is disabled.",
+              "name": "--button-secondary__bg_disabled",
+              "default": "#84B3D7"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "String"
+              },
+              "default": "'primary'",
+              "description": "Button appearance variant",
+              "attribute": "variant",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "Boolean"
+              },
+              "default": "false",
+              "description": "Disabled state of the button.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "String"
+              },
+              "description": "Type of the button.",
+              "attribute": "type",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "id",
+              "type": {
+                "text": "String"
+              },
+              "description": "The unique ID of an element(optional).",
+              "attribute": "id",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "ariaLabel",
+              "type": {
+                "text": "String"
+              },
+              "description": "Aria-label text for button.\n`aria-label` attribute that is used to define a string that labels the current element.\nuse it in cases where a text label is not visible on the screen.\nif there is visible text labeling the element, use `aria-labelledby` instead.",
+              "attribute": "aria-label"
+            },
+            {
+              "kind": "field",
+              "name": "ariaLabelledBy",
+              "type": {
+                "text": "String"
+              },
+              "description": "Aria-labelledby text for button.\nthe `aria-labelledby` attribute that establishes relationships between objects and their label(s),\nand its value should be one or more element IDs, which refer to elements that have the text needed for labeling.\nList multiple element IDs in a space delimited fashion.",
+              "attribute": "aria-labelledby"
+            },
+            {
+              "kind": "field",
+              "name": "onFocus",
+              "type": {
+                "text": "EventDispatcher<Event>"
+              },
+              "privacy": "public",
+              "description": "Fires when the textarea is focused."
+            },
+            {
+              "kind": "field",
+              "name": "onBlur",
+              "type": {
+                "text": "EventDispatcher<Event>"
+              },
+              "privacy": "public",
+              "description": "Fires every time when the value of an input element looses focus."
+            },
+            {
+              "kind": "method",
+              "name": "handleBlur",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleFocus",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "description": "occurs when an element receives focus.",
+              "name": "focus"
+            },
+            {
+              "description": "occurs when an element loses focus.",
+              "name": "blur"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "String"
+              },
+              "default": "'primary'",
+              "description": "Button appearance variant",
+              "fieldName": "variant",
+              "attribute": "variant"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "Boolean"
+              },
+              "default": "false",
+              "description": "Disabled state of the button.",
+              "fieldName": "disabled",
+              "attribute": "disabled"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "String"
+              },
+              "description": "Type of the button.",
+              "fieldName": "type",
+              "attribute": "type"
+            },
+            {
+              "name": "id",
+              "type": {
+                "text": "String"
+              },
+              "description": "The unique ID of an element(optional).",
+              "fieldName": "id",
+              "attribute": "id"
+            },
+            {
+              "name": "aria-label",
+              "type": {
+                "text": "String"
+              },
+              "description": "Aria-label text for button.\n`aria-label` attribute that is used to define a string that labels the current element.\nuse it in cases where a text label is not visible on the screen.\nif there is visible text labeling the element, use `aria-labelledby` instead.",
+              "fieldName": "ariaLabel"
+            },
+            {
+              "name": "aria-labelledby",
+              "type": {
+                "text": "String"
+              },
+              "description": "Aria-labelledby text for button.\nthe `aria-labelledby` attribute that establishes relationships between objects and their label(s),\nand its value should be one or more element IDs, which refer to elements that have the text needed for labeling.\nList multiple element IDs in a space delimited fashion.",
+              "fieldName": "ariaLabelledBy"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "wc-button",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "WCButton",
+          "declaration": {
+            "name": "WCButton",
+            "module": "src/components/button/button.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "wc-button",
+          "declaration": {
+            "name": "WCButton",
+            "module": "src/components/button/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./button"
+          }
+        }
+      ]
+    }
+  ]
+}
